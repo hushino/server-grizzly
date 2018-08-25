@@ -5,7 +5,7 @@
 
     <groupId>server</groupId>
     <artifactId>grizzly</artifactId>
-    <packaging>jar</packaging>
+    <packaging>war</packaging>
     <version>1.1</version>
     <name>grizzly</name>
 
@@ -45,19 +45,19 @@
         <dependency>
             <groupId>org.redisson</groupId>
             <artifactId>redisson</artifactId>
-            <version>3.6.5</version>
+            <version>3.7.5</version>
         </dependency>
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>8.0.12</version>
         </dependency>
-        <dependency>
-            <groupId>com.vlkan.log4j2</groupId>
-            <artifactId>log4j2-redis-appender</artifactId>
-            <version>0.4</version>
-        </dependency>
 
+        <dependency>
+            <groupId>org.glassfish.jersey.containers</groupId>
+            <artifactId>jersey-container-netty-http</artifactId>
+            <version>2.27</version>
+        </dependency>
 
         <dependency>
             <groupId>org.junit.jupiter</groupId>
@@ -108,6 +108,7 @@
             <version>2.27</version>
         </dependency>
 
+
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
@@ -140,7 +141,7 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <mainClass>server.Main</mainClass>
+                    <mainClass>server.Grizzly</mainClass>
                 </configuration>
             </plugin>
         </plugins>

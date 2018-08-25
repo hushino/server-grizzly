@@ -14,7 +14,7 @@ import java.util.List;
 
 @Entity
 @Table
-@Cacheable()
+@Cacheable( true )
 @DynamicUpdate()
 public class Anime implements Serializable {
 	

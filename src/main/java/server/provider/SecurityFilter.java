@@ -16,7 +16,7 @@ public class SecurityFilter implements ContainerRequestFilter {
 	
 	private static final String AUTHOTIZATION_HEADER_KEY = "Authorization";
 	private static final String AUTHORIZATION_HEADER_PREFIX = "Basic ";
-	private static final String SECURED_URL_PREFIX = "/";
+	private static final String SECURED_URL_PREFIX = "v1/animes/view/";
 	private static final String RESPONSE_FAIL = "User cannot access the resource.";
 	
 	@Override

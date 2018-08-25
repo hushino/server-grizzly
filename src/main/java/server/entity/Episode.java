@@ -10,7 +10,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 @Entity()
-@Cacheable()
+@Cacheable( true )
 @DynamicUpdate()
 public class Episode implements Serializable {
 	
