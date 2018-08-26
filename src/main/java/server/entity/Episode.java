@@ -10,6 +10,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 @Entity()
+@Table(name = "episode")
 @Cacheable( true )
 @DynamicUpdate()
 public class Episode implements Serializable {
@@ -19,22 +20,21 @@ public class Episode implements Serializable {
 	@Column(name = "episode_id")
 	private Long id;
 	
-	@Column
 	private String title;
 	
-	@Column
 	private double episode;
 	
-	public Long getAnime_id() {
-		return anime_id;
+	
+	public Long getParentID() {
+		return parentID;
 	}
 	
-	public void setAnime_id(Long anime_id) {
-		this.anime_id = anime_id;
+	public void setParentID(Long parentID) {
+		this.parentID = parentID;
 	}
 	
-	@Column
-	private Long anime_id;
+	@Column(updatable = false)
+	private Long parentID; //no columm and acces to joincolumm id
 	
 	
 	//@ElementCollection(targetClass=Anime.class,fetch = FetchType.EAGER)
@@ -52,8 +52,8 @@ public class Episode implements Serializable {
 	*/
 	// use optional=false (much faster) @OneToMany(optional = false)
 	@JsonbTransient
-	@ManyToOne( fetch = FetchType.LAZY, cascade = CascadeType.ALL )
-	@JoinColumn( name = "anime_id", insertable = false, updatable = false)
+	@ManyToOne( fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn( name = "anime_id" ,updatable = false )
 	private Anime anime;
 	
 	public Anime getAnime() {
@@ -101,7 +101,7 @@ public class Episode implements Serializable {
 	
 	@CreationTimestamp
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "create_date")
+	@Column(name = "create_date",updatable = false)
 	private Date createDate;
 	
 	@UpdateTimestamp

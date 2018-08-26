@@ -13,7 +13,7 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-@Table
+@Table(name = "anime")
 @Cacheable( true )
 @DynamicUpdate()
 public class Anime implements Serializable {
@@ -23,10 +23,8 @@ public class Anime implements Serializable {
 	@Column(name = "anime_id")
 	private Long id;
 	
-	@Column
 	private String title;
 	
-	@Column
 	private String data;
 	
 	@JsonbTransient
@@ -44,12 +42,7 @@ public class Anime implements Serializable {
 	@OneToMany( fetch = FetchType.LAZY, mappedBy = "anime", cascade = CascadeType.ALL )
 	private List<Episode> episode = new ArrayList<>();
 	
-	@JsonbTransient
-	public void addEpisode(Episode episode){
-		this.episode.add(episode);
-		episode.setAnime(this);
-	}
-	
+ 
 	
 	
 	/*@ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)

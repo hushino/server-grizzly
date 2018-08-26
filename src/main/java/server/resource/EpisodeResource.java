@@ -37,7 +37,7 @@ public class EpisodeResource {
 	@PUT
 	@Path( "/{episodeId}" )
 	public Episode putEpisode(@PathParam( "episodeId" ) Long episodeId, Episode episode) {
-		episode.setId(episodeId);
+		episode.setId(episodeId); // id del episodio a actualizar
 		return episodeService.putEpisode(episode);
 	}
 	

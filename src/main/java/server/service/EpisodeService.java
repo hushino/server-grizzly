@@ -14,12 +14,23 @@ public class EpisodeService {
 	private Session session = null;
 	private Transaction transaction = null;
 	
-	public Set<Episode> getAllEpisodesOfAnAnime(Long animeId) {
+	/* public List<Episode> getAllEpisodesOfAnAnime(Long animeId) {
 		session = HibernateUtil.getSessionFactory().openSession();
 		Anime anime = session.find(Anime.class, animeId);
 		anime.getEpisode().size();
+		List<Episode> episodes = anime.getEpisode();
+		session.close();
+		return episodes;
+	}*/
+	  //SELECT `Anime_anime_id`, `episode_episode_id` FROM `anime_episode` WHERE 1
+	 public Set<Episode> getAllEpisodesOfAnAnime(Long animeId) {
+		session = HibernateUtil.getSessionFactory().openSession();
+		//*Anime anime = session.find(Anime.class, animeId);
+		//anime.getEpisode().size();
 		Set<Episode> episodesHashSet = new HashSet<>();
-		for(Object oneObject : session.createQuery("FROM Episode e WHERE e.anime_id=:animeId")
+		for(Object oneObject : session.createQuery(
+				"Select o from Episode o where o.anime.id = :animeId")
+				//FROM Episode e LEFT JOIN FETCH e.anime WHERE e.episode=:animeId
 				.setParameter("animeId",animeId)
 				.setHint("org.hibernate.cacheable", true)
 				.setCacheRegion("common")
@@ -53,6 +64,7 @@ public class EpisodeService {
 		transaction.begin();
 		Anime anime = session.find(Anime.class, animeId);
 		episode.setAnime(anime);
+		episode.setParentID(animeId);
 		session.save(episode);
 		transaction.commit();
 		session.close();
@@ -63,11 +75,8 @@ public class EpisodeService {
 		session = HibernateUtil.getSessionFactory().openSession();
 		transaction = session.getTransaction();
 		transaction.begin();
-		Anime anime = new Anime();
-		anime.addEpisode(episode);
 		session.update(episode);
 		transaction.commit();
-		session.clear();
 		session.close();
 		return episode;
 	}
