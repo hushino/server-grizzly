@@ -6,12 +6,11 @@ import org.glassfish.jersey.internal.util.Base64;
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ContainerRequestFilter;
 import javax.ws.rs.core.Response;
-import javax.ws.rs.ext.Provider;
 import java.io.IOException;
 import java.util.List;
 import java.util.StringTokenizer;
 
-@Provider
+//@Provider
 public class SecurityFilter implements ContainerRequestFilter {
 	
 	private static final String AUTHOTIZATION_HEADER_KEY = "Authorization";

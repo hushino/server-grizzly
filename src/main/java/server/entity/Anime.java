@@ -50,19 +50,21 @@ public class Anime implements Serializable {
 		episode.setAnime(this);
 	}
 	
+	
+	
 	/*@ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
-	@JoinTable(name = "ANIME_EPISODE", joinColumns = { @JoinColumn(name = "ANIME_ID") },
-			inverseJoinColumns = {@JoinColumn(name = "EPISODE_ID") })
-	private List<Episode> episodes = new ArrayList<Episode>();
-	
-	public List<Episode> getEpisodes() {
-		return this.episodes;
-	}
-	
-	public void setEpisodes(List<Episode> episodes) {
-		this.episodes = episodes;
-	}
-	*/
+		@JoinTable(name = "ANIME_EPISODE", joinColumns = { @JoinColumn(name = "ANIME_ID") },
+				inverseJoinColumns = {@JoinColumn(name = "EPISODE_ID") })
+		private List<Episode> episodes = new ArrayList<Episode>();
+		
+		public List<Episode> getEpisodes() {
+			return this.episodes;
+		}
+		
+		public void setEpisodes(List<Episode> episodes) {
+			this.episodes = episodes;
+		}
+		*/
 	public Anime(String title, String data) {
 		this.title = title;
 		this.data = data;

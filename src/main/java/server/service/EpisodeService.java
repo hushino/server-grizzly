@@ -6,21 +6,39 @@ import server.entity.Anime;
 import server.entity.Episode;
 import server.hibernateUtil.HibernateUtil;
 
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 public class EpisodeService {
 	
 	private Session session = null;
 	private Transaction transaction = null;
 	
-	public List<Episode> getAllEpisodesOfAnAnime(Long animeId) {
+	public Set<Episode> getAllEpisodesOfAnAnime(Long animeId) {
+		session = HibernateUtil.getSessionFactory().openSession();
+		Anime anime = session.find(Anime.class, animeId);
+		anime.getEpisode().size();
+		Set<Episode> episodesHashSet = new HashSet<>();
+		for(Object oneObject : session.createQuery("FROM Episode e WHERE e.anime_id=:animeId")
+				.setParameter("animeId",animeId)
+				.setHint("org.hibernate.cacheable", true)
+				.setCacheRegion("common")
+				.getResultList()
+		) {
+			episodesHashSet.add(( Episode ) oneObject);
+		}
+		session.close();
+		return episodesHashSet;
+	}
+	
+	/*public List<Episode> getAllEpisodesOfAnAnime(Long animeId) {
 		session = HibernateUtil.getSessionFactory().openSession();
 		Anime anime = session.find(Anime.class, animeId);
 		anime.getEpisode().size();
 		List<Episode> episodes = anime.getEpisode();
 		session.close();
 		return episodes;
-	}
+	}*/
 	
 	public Anime getAnimeOfAnEpisode(Long animeId) {
 		session = HibernateUtil.getSessionFactory().openSession();

@@ -25,6 +25,17 @@ public class Episode implements Serializable {
 	@Column
 	private double episode;
 	
+	public Long getAnime_id() {
+		return anime_id;
+	}
+	
+	public void setAnime_id(Long anime_id) {
+		this.anime_id = anime_id;
+	}
+	
+	@Column
+	private Long anime_id;
+	
 	
 	//@ElementCollection(targetClass=Anime.class,fetch = FetchType.EAGER)
 	
@@ -42,7 +53,7 @@ public class Episode implements Serializable {
 	// use optional=false (much faster) @OneToMany(optional = false)
 	@JsonbTransient
 	@ManyToOne( fetch = FetchType.LAZY, cascade = CascadeType.ALL )
-	@JoinColumn( name = "anime_id" )
+	@JoinColumn( name = "anime_id", insertable = false, updatable = false)
 	private Anime anime;
 	
 	public Anime getAnime() {

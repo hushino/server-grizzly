@@ -6,7 +6,9 @@ import server.entity.Anime;
 import server.hibernateUtil.HibernateUtil;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class AnimeService {
 	
@@ -43,8 +45,26 @@ public class AnimeService {
 		}
 		return anime;
 	}
+	//Unique anime by id
+	public Set<Anime> getAnime(long id) {
+		session = HibernateUtil.getSessionFactory().openSession();
+		transaction = session.getTransaction();
+		transaction.begin();
+		Set<Anime> animeHashSet = new HashSet<>();
+		for(Object oneObject : session.createQuery("FROM Anime a where a.id=:id")
+				.setParameter("id",id)
+				.setHint("org.hibernate.cacheable", true)
+				.setCacheRegion("common")
+				.getResultList()
+		) {
+			animeHashSet.add(( Anime ) oneObject);
+		}
+		transaction.commit();
+		session.close();
+		return animeHashSet;
+	}
 	
-	public Anime getAnime(long id) {
+	/*public Anime getAnime(long id) {
 		session = HibernateUtil.getSessionFactory().openSession();
 		transaction = session.getTransaction();
 		transaction.begin();
@@ -52,14 +72,14 @@ public class AnimeService {
 		transaction.commit();
 		session.close();
 		return anime;
-	}
+	}*/
 	
 	public List<Anime> getAllAnimes() {
 		session = HibernateUtil.getSessionFactory().openSession();
 		ArrayList<Anime> arreglo = new ArrayList<>();
 		for(Object oneObject : session.createQuery("FROM Anime a ORDER BY a.updateDate DESC")
 				.setHint("org.hibernate.cacheable", true)
-				.setCacheRegion("common")
+				.setCacheRegion("common")  //para activar redis descomentar esto
 				.setMaxResults(10)
 				.getResultList()
 		) {

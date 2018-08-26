@@ -33,6 +33,8 @@ public class HibernateUtil {
 				// Enable second level cache (default value is true)
 				settings.put(Environment.USE_SECOND_LEVEL_CACHE, true);
 				settings.put(Environment.USE_QUERY_CACHE, true);
+				//settings.put(Environment.JPA_SHARED_CACHE_MODE, "ALL");
+				settings.put(Environment.STATEMENT_FETCH_SIZE, 10);
 				
 				// settings.put(Environment.GENERATE_STATISTICS, true);
 				
