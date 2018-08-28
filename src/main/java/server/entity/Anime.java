@@ -93,7 +93,7 @@ public class Anime implements Serializable {
 	
 	@CreationTimestamp
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "create_date")
+	@Column(name = "create_date",updatable = false)
 	private Date createDate;
 	
 	@UpdateTimestamp

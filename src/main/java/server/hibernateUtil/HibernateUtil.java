@@ -8,6 +8,7 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Environment;
 import server.entity.Anime;
 import server.entity.Episode;
+import server.entity.User;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -27,7 +28,7 @@ public class HibernateUtil {
 				settings.put(Environment.USER, "root");
 				settings.put(Environment.PASS, "");
 				settings.put(Environment.HBM2DDL_AUTO, "update");
-				settings.put(Environment.SHOW_SQL, "true");
+				settings.put(Environment.SHOW_SQL, "false");
 				settings.put(Environment.DIALECT, "org.hibernate.dialect.MySQL5Dialect");
 				//settings.put(Environment.VALIDATE_QUERY_PARAMETERS, "SELECT 1");
 				// Enable second level cache (default value is true)
@@ -67,7 +68,8 @@ public class HibernateUtil {
 				registry = registryBuilder.build();
 				MetadataSources sources = new MetadataSources(registry)
 						.addAnnotatedClass(Anime.class)
-						.addAnnotatedClass(Episode.class);
+						.addAnnotatedClass(Episode.class)
+						.addAnnotatedClass(User.class);
 				Metadata metadata = sources.getMetadataBuilder().build();
 				sessionFactory = metadata.getSessionFactoryBuilder().build();
 				
