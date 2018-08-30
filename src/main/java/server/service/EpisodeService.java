@@ -42,6 +42,23 @@ public class EpisodeService {
 		return episodesHashSet;
 	}
 	
+	public Set<Episode> getEpisodesOfAnAnime(Long animeId, Long episodeId) {
+		session = HibernateUtil.getSessionFactory().openSession();
+		Set<Episode> episodesHashSet = new HashSet<>();
+		for(Object oneObject : session.createQuery(
+				"Select o from Episode o where o.anime.id = :animeId and o.id=:episodeId ")
+				.setParameter("animeId",animeId)
+				.setParameter("episodeId",episodeId)
+				.setHint("org.hibernate.cacheable", true)
+				.setCacheRegion("common")
+				.getResultList()
+		) {
+			episodesHashSet.add(( Episode ) oneObject);
+		}
+		session.close();
+		return episodesHashSet;
+	}
+	
 	/*public List<Episode> getAllEpisodesOfAnAnime(Long animeId) {
 		session = HibernateUtil.getSessionFactory().openSession();
 		Anime anime = session.find(Anime.class, animeId);
@@ -90,6 +107,9 @@ public class EpisodeService {
 		transaction.commit();
 		session.close();
 	}
+	
+	
+ 
 	
 	
 	/*public List<Episode> getAllEpisodesOfAnAnime(Long animeId) {

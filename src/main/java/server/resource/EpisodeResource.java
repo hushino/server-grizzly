@@ -23,6 +23,12 @@ public class EpisodeResource {
 	}
 	
 	@GET
+	@Path( "/{animeId}/{episodeId}" )
+	public Set<Episode> getAllEpisodesOfAnAnime(@PathParam( "animeId" ) Long animeId,@PathParam( "episodeId" ) Long episodeId) {
+		return episodeService.getEpisodesOfAnAnime(animeId,episodeId);
+	}
+	
+	@GET
 	@Path( "/{animeId}/v" )
 	public Anime getAnimeOfAnEpisode(@PathParam( "animeId" ) Long animeId) {
 		return episodeService.getAnimeOfAnEpisode(animeId);

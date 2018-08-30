@@ -17,7 +17,9 @@ public class HomeService {
 		session = HibernateUtil.getSessionFactory().openSession();
 		ArrayList<Episode> episodeArrayList = new ArrayList<>();
 		for(Object object : session.createQuery("FROM Episode a ORDER BY a.updateDate DESC")
-				.setMaxResults(3)
+				.setMaxResults(20)
+				.setHint("org.hibernate.cacheable", true)
+				.setCacheRegion("common")
 				.getResultList()
 		)
 		{

@@ -8,6 +8,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -25,7 +26,20 @@ public class Anime implements Serializable {
 	
 	private String title;
 	
-	private String data;
+	@Column(length = 1500)
+	private String synopsis;
+	
+	private String state;
+	
+	private String type;
+	
+	private String frontimage;
+	
+	private String backgroundimage;
+	
+	private LocalDateTime fechadeEmision;
+	
+	private LocalDateTime fechadeFinalizacion;
 	
 	@JsonbTransient
 	public List<Episode> getEpisode() {
@@ -42,8 +56,6 @@ public class Anime implements Serializable {
 	@OneToMany( fetch = FetchType.LAZY, mappedBy = "anime", cascade = CascadeType.ALL )
 	private List<Episode> episode = new ArrayList<>();
 	
- 
-	
 	
 	/*@ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
 		@JoinTable(name = "ANIME_EPISODE", joinColumns = { @JoinColumn(name = "ANIME_ID") },
@@ -58,9 +70,74 @@ public class Anime implements Serializable {
 			this.episodes = episodes;
 		}
 		*/
-	public Anime(String title, String data) {
+	
+	public String getSynopsis() {
+		return synopsis;
+	}
+	
+	public void setSynopsis(String synopsis) {
+		this.synopsis = synopsis;
+	}
+	
+	public String getState() {
+		return state;
+	}
+	
+	public void setState(String state) {
+		this.state = state;
+	}
+	
+	public String getType() {
+		return type;
+	}
+	
+	public void setType(String type) {
+		this.type = type;
+	}
+	
+	public String getFrontimage() {
+		return frontimage;
+	}
+	
+	public void setFrontimage(String frontimage) {
+		this.frontimage = frontimage;
+	}
+	
+	public String getBackgroundimage() {
+		return backgroundimage;
+	}
+	
+	public void setBackgroundimage(String backgroundimage) {
+		this.backgroundimage = backgroundimage;
+	}
+	
+	
+	public LocalDateTime getFechadeEmision() {
+		return fechadeEmision;
+	}
+	
+	public void setFechadeEmision(LocalDateTime fechadeEmision) {
+		this.fechadeEmision = fechadeEmision;
+	}
+	
+	public LocalDateTime getFechadeFinalizacion() {
+		return fechadeFinalizacion;
+	}
+	
+	public void setFechadeFinalizacion(LocalDateTime fechadeFinalizacion) {
+		this.fechadeFinalizacion = fechadeFinalizacion;
+	}
+	
+	public Anime(String title, String synopsis, String state, String type, String frontimage, String backgroundimage, LocalDateTime fechadeEmision, LocalDateTime fechadeFinalizacion, List<Episode> episode) {
 		this.title = title;
-		this.data = data;
+		this.synopsis = synopsis;
+		this.state = state;
+		this.type = type;
+		this.frontimage = frontimage;
+		this.backgroundimage = backgroundimage;
+		this.fechadeEmision = fechadeEmision;
+		this.fechadeFinalizacion = fechadeFinalizacion;
+		this.episode = episode;
 	}
 	
 	public Anime(){
@@ -83,14 +160,6 @@ public class Anime implements Serializable {
 		this.title = title;
 	}
 	
-	public String getData() {
-		return data;
-	}
-	
-	public void setData(String data) {
-		this.data = data;
-	}
-	
 	@CreationTimestamp
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "create_date",updatable = false)
@@ -106,7 +175,6 @@ public class Anime implements Serializable {
 		return "Anime{"+
 				"id="+id+
 				", title='"+title+'\''+
-				", data='"+data+'\''+
 				/*", episode="+episode+*/
 				", createDate="+createDate+
 				", updateDate="+updateDate+

@@ -24,6 +24,11 @@ public class Episode implements Serializable {
 	
 	private double episode;
 	
+	@Column(length = 900)
+	private String imageCap;
+	
+	@Column(length = 300)
+	private String server;
 	
 	public Long getParentID() {
 		return parentID;
@@ -74,7 +79,21 @@ public class Episode implements Serializable {
 	
 	public Episode() {
 	}
+	public String getImageCap() {
+		return imageCap;
+	}
 	
+	public void setImageCap(String imageCap) {
+		this.imageCap = imageCap;
+	}
+	
+	public String getServer() {
+		return server;
+	}
+	
+	public void setServer(String server) {
+		this.server = server;
+	}
 	public Long getId() {
 		return id;
 	}
