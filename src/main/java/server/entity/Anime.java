@@ -57,6 +57,20 @@ public class Anime implements Serializable {
 	private List<Episode> episode = new ArrayList<>();
 	
 	
+	@JsonbTransient
+	@OneToMany( fetch = FetchType.LAZY, mappedBy = "anime", cascade = CascadeType.ALL )
+	private List<Tag> tag = new ArrayList<>();
+	
+	@JsonbTransient
+	public List<Tag> getTag() {
+		return tag;
+	}
+	
+	@JsonbTransient
+	public void setTag(List<Tag> episode) {
+		this.tag = tag;
+	}
+	
 	/*@ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
 		@JoinTable(name = "ANIME_EPISODE", joinColumns = { @JoinColumn(name = "ANIME_ID") },
 				inverseJoinColumns = {@JoinColumn(name = "EPISODE_ID") })

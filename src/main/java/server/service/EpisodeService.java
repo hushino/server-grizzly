@@ -29,7 +29,7 @@ public class EpisodeService {
 		//anime.getEpisode().size();
 		Set<Episode> episodesHashSet = new HashSet<>();
 		for(Object oneObject : session.createQuery(
-				"Select o from Episode o where o.anime.id = :animeId")
+				"Select o from Episode o where o.anime.id = :animeId ORDER BY o.updateDate DESC")
 				//FROM Episode e LEFT JOIN FETCH e.anime WHERE e.episode=:animeId
 				.setParameter("animeId",animeId)
 				.setHint("org.hibernate.cacheable", true)
@@ -42,7 +42,7 @@ public class EpisodeService {
 		return episodesHashSet;
 	}
 	
-	public Set<Episode> getEpisodesOfAnAnime(Long animeId, Long episodeId) {
+	public Set<Episode> getUniqueEpisodesOfAnime(Long animeId, Long episodeId) {
 		session = HibernateUtil.getSessionFactory().openSession();
 		Set<Episode> episodesHashSet = new HashSet<>();
 		for(Object oneObject : session.createQuery(

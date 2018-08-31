@@ -8,6 +8,7 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Environment;
 import server.entity.Anime;
 import server.entity.Episode;
+import server.entity.Tag;
 import server.entity.User;
 
 import java.util.HashMap;
@@ -69,7 +70,8 @@ public class HibernateUtil {
 				MetadataSources sources = new MetadataSources(registry)
 						.addAnnotatedClass(Anime.class)
 						.addAnnotatedClass(Episode.class)
-						.addAnnotatedClass(User.class);
+						.addAnnotatedClass(User.class)
+						.addAnnotatedClass(Tag.class);
 				Metadata metadata = sources.getMetadataBuilder().build();
 				sessionFactory = metadata.getSessionFactoryBuilder().build();
 				
