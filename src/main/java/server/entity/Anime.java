@@ -1,12 +1,13 @@
 package server.entity;
 
 
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.DynamicUpdate;
-import org.hibernate.annotations.UpdateTimestamp;
+import org.hibernate.annotations.*;
 
 import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -58,18 +59,11 @@ public class Anime implements Serializable {
 	
 	
 	@JsonbTransient
-	@OneToMany( fetch = FetchType.LAZY, mappedBy = "anime", cascade = CascadeType.ALL )
-	private List<Tag> tag = new ArrayList<>();
+	@NotFound( action = NotFoundAction.IGNORE )
+	@OneToMany( fetch = FetchType.EAGER, mappedBy = "anime", cascade = CascadeType.ALL )
+	private List<Tag_Anime> animes = new ArrayList<>();
 	
-	@JsonbTransient
-	public List<Tag> getTag() {
-		return tag;
-	}
 	
-	@JsonbTransient
-	public void setTag(List<Tag> episode) {
-		this.tag = tag;
-	}
 	
 	/*@ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
 		@JoinTable(name = "ANIME_EPISODE", joinColumns = { @JoinColumn(name = "ANIME_ID") },
