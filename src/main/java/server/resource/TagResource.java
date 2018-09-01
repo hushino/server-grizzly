@@ -1,6 +1,7 @@
 package server.resource;
 
 
+import server.entity.Anime;
 import server.entity.Tag;
 import server.service.TagService;
 
@@ -24,5 +25,11 @@ public class TagResource {
 	@Path("/s/{string}")
 	public List<Tag> getAllAnimeWhithTagName(@PathParam( "string" ) String string){
 		return tagService.getAllAnimeWhithTagName(string);
+	}
+	
+	@GET
+	@Path("/s/s/{string}")
+	public List<Anime> getAll(@PathParam( "string" ) Long id){
+		return tagService.getAll(id);
 	}
 }

@@ -68,8 +68,7 @@ public class HibernateUtil {
 						.addAnnotatedClass(Anime.class)
 						.addAnnotatedClass(Episode.class)
 						.addAnnotatedClass(User.class)
-						.addAnnotatedClass(Tag.class)
-						.addAnnotatedClass(Tag_Anime.class);
+						.addAnnotatedClass(Tag.class);
 				Metadata metadata = sources.getMetadataBuilder().build();
 				sessionFactory = metadata.getSessionFactoryBuilder().build();
 				

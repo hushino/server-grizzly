@@ -1,13 +1,12 @@
 package server.entity;
 
 
-import org.hibernate.annotations.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.DynamicUpdate;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.*;
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.Table;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -57,13 +56,49 @@ public class Anime implements Serializable {
 	@OneToMany( fetch = FetchType.LAZY, mappedBy = "anime", cascade = CascadeType.ALL )
 	private List<Episode> episode = new ArrayList<>();
 	
-	
 	@JsonbTransient
-	@NotFound( action = NotFoundAction.IGNORE )
-	@OneToMany( fetch = FetchType.EAGER, mappedBy = "anime", cascade = CascadeType.ALL )
-	private List<Tag_Anime> animes = new ArrayList<>();
+	@ManyToMany( fetch = FetchType.EAGER, mappedBy = "anime", cascade = CascadeType.ALL )
+	private List<Tag> tags = new ArrayList<>();
 	
+	public List<Tag> getTags() {
+		return tags;
+	}
 	
+	public void setTags(List<Tag> tags) {
+		this.tags = tags;
+	}
+	
+ 
+	/*@JoinTable(
+		name="AnimeTag",
+		joinColumns=@JoinColumn(name="TagId"),
+		inverseJoinColumns=@JoinColumn(name="AnimeId")
+	)*/
+	/*@JsonbTransient
+	@ManyToMany(fetch=FetchType.EAGER,cascade = {CascadeType.ALL} )
+	private List<Tag> tags = new ArrayList<>();
+	
+	public List<Tag> getTags() {
+		return tags;
+	}
+	
+	public void setTags(List<Tag> tags) {
+		this.tags = tags;
+	}*/
+	
+ 
+	/*	@JsonbTransient
+	@ManyToOne( fetch = FetchType.EAGER, cascade = CascadeType.ALL )
+	@JoinColumn( name = "tag_id" ,updatable = false )
+	private Tag tag;
+	
+	public Tag getTag() {
+		return tag;
+	}
+	
+	public void setTag(Tag tag) {
+		this.tag = tag;
+	}*/
 	
 	/*@ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
 		@JoinTable(name = "ANIME_EPISODE", joinColumns = { @JoinColumn(name = "ANIME_ID") },

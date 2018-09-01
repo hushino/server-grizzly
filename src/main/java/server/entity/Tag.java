@@ -1,14 +1,12 @@
 package server.entity;
 
-import org.hibernate.annotations.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.DynamicUpdate;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.*;
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.Table;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -20,11 +18,11 @@ public class Tag implements Serializable {
 	public Tag() {
 	}
 	
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "tag_id")
+	@GeneratedValue
 	@Id
-	private String id;
-	
+	@Column(name = "tag_id")
+	private Long id;
+ 
 	private String gender;
 	
 	public String getGender() {
@@ -35,26 +33,58 @@ public class Tag implements Serializable {
 		this.gender = gender;
 	}
 	
-	public String getId() {
+	public Long getId() {
 		return id;
 	}
 	
-	public void setId(String id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 	
 	@JsonbTransient
-	@NotFound( action = NotFoundAction.IGNORE )
-	@OneToMany( fetch = FetchType.EAGER, mappedBy = "tag", cascade = CascadeType.ALL)
-	private List<Tag_Anime> tagAnimes = new ArrayList<>();
+	@ManyToMany( fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JoinColumn( name = "anime_id" ,updatable = false )
+	private List<Anime> anime;
 	
-	public List<Tag_Anime> getTagAnimes() {
-		return tagAnimes;
+	public List<Anime> getAnime() {
+		return anime;
 	}
 	
-	public void setTagAnimes(List<Tag_Anime> tagAnimes) {
-		this.tagAnimes = tagAnimes;
+	public void setAnime(List<Anime> anime) {
+		this.anime = anime;
 	}
+	 /*@JsonbTransient
+	@OneToMany( fetch = FetchType.EAGER, mappedBy = "anime", cascade = CascadeType.ALL )
+	private List<Tag> tags = new ArrayList<>();
+	
+	public List<Tag> getTags() {
+		return tags;
+	}
+	
+	public void setTags(List<Tag> tags) {
+		this.tags = tags;
+	}*/
+	
+	/*@JoinTable(
+			name="AnimeTag",
+			joinColumns=@JoinColumn(name="AnimeId"),
+			inverseJoinColumns=@JoinColumn(name="TagId")
+	)*/
+	/*@JsonbTransient
+	@ManyToMany(fetch=FetchType.EAGER,cascade = {CascadeType.ALL},mappedBy = "tags")
+	private List<Anime> animes = new ArrayList<>();*/
+ 
+	/*@OneToMany( fetch = FetchType.EAGER, mappedBy = "tag", cascade = CascadeType.ALL )
+	private List<Anime> anime = new ArrayList<>();
+	
+	public List<Anime> getAnime() {
+		return anime;
+	}
+	
+	public void setAnime(List<Anime> anime) {
+		this.anime = anime;
+	}*/
+
 	
 	@CreationTimestamp
 	@Temporal(TemporalType.TIMESTAMP)

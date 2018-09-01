@@ -6,8 +6,8 @@ import server.entity.Anime;
 import server.entity.Episode;
 import server.hibernateUtil.HibernateUtil;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 public class EpisodeService {
 	
@@ -23,11 +23,11 @@ public class EpisodeService {
 		return episodes;
 	}*/
 	  //SELECT `Anime_anime_id`, `episode_episode_id` FROM `anime_episode` WHERE 1
-	 public Set<Episode> getAllEpisodesOfAnAnime(Long animeId) {
+	 public List<Episode> getAllEpisodesOfAnAnime(Long animeId) {
 		session = HibernateUtil.getSessionFactory().openSession();
 		//*Anime anime = session.find(Anime.class, animeId);
 		//anime.getEpisode().size();
-		Set<Episode> episodesHashSet = new HashSet<>();
+		 List<Episode> episodesHashSet = new ArrayList<>();
 		for(Object oneObject : session.createQuery(
 				"Select o from Episode o where o.anime.id = :animeId ORDER BY o.updateDate DESC")
 				//FROM Episode e LEFT JOIN FETCH e.anime WHERE e.episode=:animeId
@@ -42,9 +42,9 @@ public class EpisodeService {
 		return episodesHashSet;
 	}
 	
-	public Set<Episode> getUniqueEpisodesOfAnime(Long animeId, Long episodeId) {
+	public List<Episode> getUniqueEpisodesOfAnime(Long animeId, Long episodeId) {
 		session = HibernateUtil.getSessionFactory().openSession();
-		Set<Episode> episodesHashSet = new HashSet<>();
+		List<Episode> episodesHashSet = new ArrayList<>();
 		for(Object oneObject : session.createQuery(
 				"Select o from Episode o where o.anime.id = :animeId and o.id=:episodeId ")
 				.setParameter("animeId",animeId)

@@ -7,7 +7,7 @@ import server.service.EpisodeService;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
-import java.util.Set;
+import java.util.List;
 
 @Path( "/" )
 @Produces( MediaType.APPLICATION_JSON )
@@ -18,13 +18,13 @@ public class EpisodeResource {
 	
 	@GET
 	@Path( "/{animeId}" )
-	public Set<Episode> getAllEpisodesOfAnAnime(@PathParam( "animeId" ) Long animeId) {
+	public List<Episode> getAllEpisodesOfAnAnime(@PathParam( "animeId" ) Long animeId) {
 		return episodeService.getAllEpisodesOfAnAnime(animeId);
 	}
 	
 	@GET
 	@Path( "/{animeId}/{episodeId}" )
-	public Set<Episode> getUniqueEpisodesOfAnime(@PathParam( "animeId" ) Long animeId,@PathParam( "episodeId" ) Long episodeId) {
+	public List<Episode> getUniqueEpisodesOfAnime(@PathParam( "animeId" ) Long animeId,@PathParam( "episodeId" ) Long episodeId) {
 		return episodeService.getUniqueEpisodesOfAnime(animeId,episodeId);
 	}
 	
