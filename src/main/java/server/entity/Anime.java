@@ -57,7 +57,7 @@ public class Anime implements Serializable {
 	private List<Episode> episode = new ArrayList<>();
 	
 	@JsonbTransient
-	@ManyToMany( fetch = FetchType.EAGER, mappedBy = "anime", cascade = CascadeType.ALL )
+	@ManyToMany( fetch = FetchType.LAZY, mappedBy = "anime", cascade = CascadeType.ALL )
 	private List<Tag> tags = new ArrayList<>();
 	
 	public List<Tag> getTags() {

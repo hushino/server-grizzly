@@ -3,11 +3,9 @@ package server.service;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import server.entity.Anime;
-import server.entity.Episode;
 import server.entity.Tag;
 import server.hibernateUtil.HibernateUtil;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class TagService {
@@ -16,24 +14,14 @@ public class TagService {
 	
 	public List<Tag> getAllTagsOfAnime(Long id) {
 		session = HibernateUtil.getSessionFactory().openSession();
-		List<Tag> Tag = new ArrayList<>();
-		for(Object oneObject : session.createQuery(
-				"from Anime a join fetch a.tags at join fetch at.tag where a.id =:id")
-				//from Tag o join o.anime a where o.id =:id
-				//select a.firstName, a.lastName from Book b join b.authors a where b.id = :id
-				//FROM Episode e LEFT JOIN FETCH e.anime WHERE e.episode=:animeId
-				.setParameter("id",id)
-				/*.setHint("org.hibernate.cacheable", true)
-				.setCacheRegion("common")*/
-				.getResultList()
-		) {
-			Tag.add(( Tag ) oneObject);
-		}
+		Anime anime = session.find(Anime.class, id);
+		anime.getTags().size();
+		List<Tag> tags = anime.getTags();
 		session.close();
-		return Tag;
+		return tags;
 	}
 	
-	public List<Tag> getAllAnimeWhithTagName(String string) {
+	/*public List<Tag> getAllAnimeWhithTagName(String string) {
 		session = HibernateUtil.getSessionFactory().openSession();
 		List<Tag> Tag = new ArrayList<>();
 		for(Object oneObject : session.createQuery(
@@ -41,15 +29,15 @@ public class TagService {
 				//Select o from Tag o where o.gender = :string
 				//FROM Episode e LEFT JOIN FETCH e.anime WHERE e.episode=:animeId
 				.setParameter("string",string)
-				/*.setHint("org.hibernate.cacheable", true)
-				.setCacheRegion("common")*/
+				*//*.setHint("org.hibernate.cacheable", true)
+				.setCacheRegion("common")*//*
 				.getResultList()
 		) {
 			Tag.add(( Tag ) oneObject);
 		}
 		session.close();
 		return Tag;
-	}
+	}*/
 	
 	public List<Anime> getAll(Long id) {
 		/*session = HibernateUtil.getSessionFactory().openSession();
@@ -66,7 +54,7 @@ public class TagService {
 		return anime;
 	}
 }
-
+//from Tag a join fetch a.tags at join fetch at.tag where a.id =:id
 /*session = HibernateUtil.getSessionFactory().openSession();
 		List<Tag> Tag = new ArrayList<>();
 		for(Object oneObject : session.createQuery(

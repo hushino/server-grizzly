@@ -21,15 +21,16 @@ public class TagResource {
 		return tagService.getAllTagsOfAnime(id);
 	}
 	
-	@GET
+	/*@GET
 	@Path("/s/{string}")
 	public List<Tag> getAllAnimeWhithTagName(@PathParam( "string" ) String string){
 		return tagService.getAllAnimeWhithTagName(string);
 	}
+	*/
 	
 	@GET
-	@Path("/s/s/{string}")
-	public List<Anime> getAll(@PathParam( "string" ) Long id){
+	@Path("/getAllAnimeByGenre/{id}")
+	public List<Anime> getAll(@PathParam( "id" ) Long id){
 		return tagService.getAll(id);
 	}
 }
