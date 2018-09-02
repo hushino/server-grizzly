@@ -20,7 +20,14 @@ public class TagService {
 		session.close();
 		return tags;
 	}
-	
+	public List<Anime> getAll(Long id) {
+		session = HibernateUtil.getSessionFactory().openSession();
+		Tag tag = session.find(Tag.class, id);
+		tag.getAnime().size();
+		List<Anime> anime = tag.getAnime();
+		session.close();
+		return anime;
+	}
 	/*public List<Tag> getAllAnimeWhithTagName(String string) {
 		session = HibernateUtil.getSessionFactory().openSession();
 		List<Tag> Tag = new ArrayList<>();
@@ -39,20 +46,7 @@ public class TagService {
 		return Tag;
 	}*/
 	
-	public List<Anime> getAll(Long id) {
-		/*session = HibernateUtil.getSessionFactory().openSession();
-		Anime anime = session.find(Anime.class, string);
-		anime.getEpisode().size();
-		List<Episode> episodes = anime.getEpisode();
-		session.close();
-		return episodes;*/
-		session = HibernateUtil.getSessionFactory().openSession();
-		Tag tag = session.find(Tag.class, id);
-		tag.getAnime().size();
-		List<Anime> anime = tag.getAnime();
-		session.close();
-		return anime;
-	}
+	
 }
 //from Tag a join fetch a.tags at join fetch at.tag where a.id =:id
 /*session = HibernateUtil.getSessionFactory().openSession();
