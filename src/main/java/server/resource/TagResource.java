@@ -8,6 +8,7 @@ import server.service.TagService;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.util.List;
+import java.util.Set;
 
 @Path( "/tag" )
 @Produces( MediaType.APPLICATION_JSON)
@@ -17,7 +18,7 @@ public class TagResource {
 	
 	@GET
 	@Path("/{animeId}")
-	public List<Tag> getAllTagsOfAnime(@PathParam( "animeId" ) Long id){
+	public Set<Tag> getAllTagsOfAnime(@PathParam( "animeId" ) Long id){
 		return tagService.getAllTagsOfAnime(id);
 	}
 	

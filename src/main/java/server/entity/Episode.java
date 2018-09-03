@@ -57,7 +57,7 @@ public class Episode implements Serializable {
 	*/
 	// use optional=false (much faster) @OneToMany(optional = false)
 	@JsonbTransient
-	@ManyToOne( fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@ManyToOne( fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn( name = "anime_id" ,updatable = false )
 	private Anime anime;
 	

@@ -7,16 +7,17 @@ import server.entity.Tag;
 import server.hibernateUtil.HibernateUtil;
 
 import java.util.List;
+import java.util.Set;
 
 public class TagService {
 	private Session session = null;
 	private Transaction transaction = null;
 	
-	public List<Tag> getAllTagsOfAnime(Long id) {
+	public Set<Tag> getAllTagsOfAnime(Long id) {
 		session = HibernateUtil.getSessionFactory().openSession();
 		Anime anime = session.find(Anime.class, id);
 		anime.getTags().size();
-		List<Tag> tags = anime.getTags();
+		Set<Tag> tags = anime.getTags();
 		session.close();
 		return tags;
 	}

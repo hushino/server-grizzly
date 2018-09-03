@@ -1,17 +1,17 @@
 package server.entity;
 
 
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.DynamicUpdate;
-import org.hibernate.annotations.UpdateTimestamp;
+import org.hibernate.annotations.*;
 
-import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "anime")
@@ -41,35 +41,35 @@ public class Anime implements Serializable {
 	
 	private LocalDateTime fechadeFinalizacion;
 	
-	@JsonbTransient
-	public List<Episode> getEpisode() {
+	
+	
+	// use optional=false (much faster) @OneToMany(optional = false)
+	
+	@LazyCollection(LazyCollectionOption.FALSE)
+	@OneToMany( fetch = FetchType.EAGER, mappedBy = "anime", cascade = CascadeType.ALL )
+	private Set<Episode> episode = new LinkedHashSet<>();
+	
+	@LazyCollection( LazyCollectionOption.FALSE)
+	@ManyToMany( fetch = FetchType.EAGER, mappedBy = "anime", cascade = CascadeType.ALL )
+	private Set<Tag> tags =new LinkedHashSet<>();
+	
+	public Set<Episode> getEpisode() {
 		return episode;
 	}
 	
-	@JsonbTransient
-	public void setEpisode(List<Episode> episode) {
+	public void setEpisode(Set<Episode> episode) {
 		this.episode = episode;
 	}
 	
-	// use optional=false (much faster) @OneToMany(optional = false)
-	@JsonbTransient
-	@OneToMany( fetch = FetchType.LAZY, mappedBy = "anime", cascade = CascadeType.ALL )
-	private List<Episode> episode = new ArrayList<>();
-	
-	@JsonbTransient
-	@ManyToMany( fetch = FetchType.LAZY, mappedBy = "anime", cascade = CascadeType.ALL )
-	private List<Tag> tags = new ArrayList<>();
-	
-	public List<Tag> getTags() {
+	public Set<Tag> getTags() {
 		return tags;
 	}
 	
-	public void setTags(List<Tag> tags) {
+	public void setTags(Set<Tag> tags) {
 		this.tags = tags;
 	}
 	
- 
-	/*@JoinTable(
+	 /*@JoinTable(
 		name="AnimeTag",
 		joinColumns=@JoinColumn(name="TagId"),
 		inverseJoinColumns=@JoinColumn(name="AnimeId")
@@ -171,7 +171,7 @@ public class Anime implements Serializable {
 		this.fechadeFinalizacion = fechadeFinalizacion;
 	}
 	
-	public Anime(String title, String synopsis, String state, String type, String frontimage, String backgroundimage, LocalDateTime fechadeEmision, LocalDateTime fechadeFinalizacion, List<Episode> episode) {
+	public Anime(String title, String synopsis, String state, String type, String frontimage, String backgroundimage, LocalDateTime fechadeEmision, LocalDateTime fechadeFinalizacion ) {
 		this.title = title;
 		this.synopsis = synopsis;
 		this.state = state;
@@ -180,7 +180,6 @@ public class Anime implements Serializable {
 		this.backgroundimage = backgroundimage;
 		this.fechadeEmision = fechadeEmision;
 		this.fechadeFinalizacion = fechadeFinalizacion;
-		this.episode = episode;
 	}
 	
 	public Anime(){

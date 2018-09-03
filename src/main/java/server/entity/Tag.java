@@ -42,7 +42,7 @@ public class Tag implements Serializable {
 	}
 	
 	@JsonbTransient
-	@ManyToMany( fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@ManyToMany( fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn( name = "anime_id" ,updatable = false )
 	private List<Anime> anime;
 	

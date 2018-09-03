@@ -6,7 +6,7 @@ import server.entity.Anime;
 import server.hibernateUtil.HibernateUtil;
 
 import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -50,11 +50,14 @@ public class AnimeService {
 		session = HibernateUtil.getSessionFactory().openSession();
 		transaction = session.getTransaction();
 		transaction.begin();
-		Set<Anime> animeHashSet = new HashSet<>();
-		for(Object oneObject : session.createQuery("FROM Anime a where a.id=:id")
+		Set<Anime> animeHashSet = new LinkedHashSet<>();
+		/*Anime anime = session.find(Anime.class, id);
+		anime.getEpisode().size();*/
+		for(Object oneObject : session.createQuery("FROM Anime as a   left join fetch a.episode as e where a.id=:id  and e.parentID=:episodeId")
 				.setParameter("id",id)
-				.setHint("org.hibernate.cacheable", true)
-				.setCacheRegion("common")
+				.setParameter("episodeId",id)
+				/*.setHint("org.hibernate.cacheable", true)
+				.setCacheRegion("common")*/
 				.getResultList()
 		) {
 			animeHashSet.add(( Anime ) oneObject);
@@ -63,7 +66,13 @@ public class AnimeService {
 		session.close();
 		return animeHashSet;
 	}
-	
+	/*"select distinct bd,sum(bpds.amount) from BillDetails as bd "
+                    + "left join fetch bd.customerDetails as cd "
+                    + "left join fetch bd.billProductList as bpd "
+                    + "left join fetch bpd.product as pd "
+                    +"left join fetch bd.billPaidDetailses as bpds "
+                    + "where bd.billNo=:id "
+                    + "and bd.client.id=:cid ";*/
 	/*public Anime getAnime(long id) {
 		session = HibernateUtil.getSessionFactory().openSession();
 		transaction = session.getTransaction();
