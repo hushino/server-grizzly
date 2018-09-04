@@ -12,14 +12,14 @@ public class TagService {
 	private Session session = null;
 	private Transaction transaction = null;
 	
-	/*public List<Tag> getAllTagsOfAnime(Long id) {
+	public List<Tag> getAllTagsOfAnime(Long id) {
 		session = HibernateUtil.getSessionFactory().openSession();
 		Anime anime = session.find(Anime.class, id);
 		anime.getTags().size();
 		List<Tag> tags = anime.getTags();
 		session.close();
 		return tags;
-	}*/
+	}
 	public List<Anime> getAll(Long id) {
 		session = HibernateUtil.getSessionFactory().openSession();
 		Tag tag = session.find(Tag.class, id);

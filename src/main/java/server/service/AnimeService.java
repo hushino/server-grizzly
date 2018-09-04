@@ -51,11 +51,10 @@ public class AnimeService {
 		List<Anime> animeHashSet = new ArrayList<>();
 		/*Anime anime = session.find(Anime.class, id);
 		anime.getEpisode().size();*/
-		for(Object oneObject : session.createQuery("FROM Anime as a left join fetch a.episode as e where a.id=:id  and e.parentID=:episodeId ORDER BY e.updateDate DESC")
+		for(Object oneObject : session.createQuery("FROM Anime  a where a.id=:id")
 				.setParameter("id",id)
-				.setParameter("episodeId",id)
-				/*.setHint("org.hibernate.cacheable", true)
-				.setCacheRegion("common")*/
+				.setHint("org.hibernate.cacheable", true)
+				.setCacheRegion("common")
 				.getResultList()
 		) {
 			animeHashSet.add(( Anime ) oneObject);

@@ -2,6 +2,7 @@ package server.resource;
 
 
 import server.entity.Anime;
+import server.entity.Tag;
 import server.service.TagService;
 
 import javax.ws.rs.*;
@@ -14,11 +15,11 @@ import java.util.List;
 public class TagResource {
 	private TagService tagService = new TagService();
 	
-	/*@GET
+	@GET
 	@Path("/{animeId}")
 	public List<Tag> getAllTagsOfAnime(@PathParam( "animeId" ) Long id){
 		return tagService.getAllTagsOfAnime(id);
-	}*/
+	}
 	
 	/*@GET
 	@Path("/s/{string}")

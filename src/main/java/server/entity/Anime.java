@@ -43,12 +43,10 @@ public class Anime implements Serializable {
 	
 	// use optional=false (much faster) @OneToMany(optional = false)
 	
-	@LazyCollection(LazyCollectionOption.FALSE)
 	@OneToMany( fetch = FetchType.EAGER, mappedBy = "anime", cascade = CascadeType.ALL )
 	@Fetch(value = FetchMode.SUBSELECT)
 	private List<Episode> episode = new ArrayList<>();
 	
-	@LazyCollection( LazyCollectionOption.FALSE)
 	@ManyToMany( fetch = FetchType.EAGER, mappedBy = "anime", cascade = CascadeType.ALL )
 	@Fetch(value = FetchMode.SUBSELECT)
 	private List<Tag> tags =new ArrayList<>();
