@@ -6,7 +6,6 @@ import server.service.AnimeService;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.util.List;
-import java.util.Set;
 
 /**
  * Root resource (exposed at "myresource" path)
@@ -37,7 +36,7 @@ public class AnimeResource {
 	// get by id, sirve para solo mostrar la cartelera
 	@GET
 	@Path( "/{animeId}" )
-	public Set<Anime> getAnime(@PathParam( "animeId" ) Long id) {
+	public List<Anime> getAnime(@PathParam( "animeId" ) Long id) {
 		return animeService.getAnime(id);
 	}
 	

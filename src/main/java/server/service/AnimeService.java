@@ -6,9 +6,7 @@ import server.entity.Anime;
 import server.hibernateUtil.HibernateUtil;
 
 import java.util.ArrayList;
-import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.Set;
 
 public class AnimeService {
 	
@@ -46,14 +44,14 @@ public class AnimeService {
 		return anime;
 	}
 	//Unique anime by id
-	public Set<Anime> getAnime(long id) {
+	public List<Anime> getAnime(long id) {
 		session = HibernateUtil.getSessionFactory().openSession();
 		transaction = session.getTransaction();
 		transaction.begin();
-		Set<Anime> animeHashSet = new LinkedHashSet<>();
+		List<Anime> animeHashSet = new ArrayList<>();
 		/*Anime anime = session.find(Anime.class, id);
 		anime.getEpisode().size();*/
-		for(Object oneObject : session.createQuery("FROM Anime as a   left join fetch a.episode as e where a.id=:id  and e.parentID=:episodeId")
+		for(Object oneObject : session.createQuery("FROM Anime as a left join fetch a.episode as e where a.id=:id  and e.parentID=:episodeId ORDER BY e.updateDate DESC")
 				.setParameter("id",id)
 				.setParameter("episodeId",id)
 				/*.setHint("org.hibernate.cacheable", true)

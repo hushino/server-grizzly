@@ -9,9 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.Date;
-import java.util.LinkedHashSet;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Table(name = "anime")
@@ -47,25 +45,27 @@ public class Anime implements Serializable {
 	
 	@LazyCollection(LazyCollectionOption.FALSE)
 	@OneToMany( fetch = FetchType.EAGER, mappedBy = "anime", cascade = CascadeType.ALL )
-	private Set<Episode> episode = new LinkedHashSet<>();
+	@Fetch(value = FetchMode.SUBSELECT)
+	private List<Episode> episode = new ArrayList<>();
 	
 	@LazyCollection( LazyCollectionOption.FALSE)
 	@ManyToMany( fetch = FetchType.EAGER, mappedBy = "anime", cascade = CascadeType.ALL )
-	private Set<Tag> tags =new LinkedHashSet<>();
+	@Fetch(value = FetchMode.SUBSELECT)
+	private List<Tag> tags =new ArrayList<>();
 	
-	public Set<Episode> getEpisode() {
+	public List<Episode> getEpisode() {
 		return episode;
 	}
 	
-	public void setEpisode(Set<Episode> episode) {
+	public void setEpisode(List<Episode> episode) {
 		this.episode = episode;
 	}
 	
-	public Set<Tag> getTags() {
+	public List<Tag> getTags() {
 		return tags;
 	}
 	
-	public void setTags(Set<Tag> tags) {
+	public void setTags(List<Tag> tags) {
 		this.tags = tags;
 	}
 	

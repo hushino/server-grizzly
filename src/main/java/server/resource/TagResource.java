@@ -2,13 +2,11 @@ package server.resource;
 
 
 import server.entity.Anime;
-import server.entity.Tag;
 import server.service.TagService;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.util.List;
-import java.util.Set;
 
 @Path( "/tag" )
 @Produces( MediaType.APPLICATION_JSON)
@@ -16,11 +14,11 @@ import java.util.Set;
 public class TagResource {
 	private TagService tagService = new TagService();
 	
-	@GET
+	/*@GET
 	@Path("/{animeId}")
-	public Set<Tag> getAllTagsOfAnime(@PathParam( "animeId" ) Long id){
+	public List<Tag> getAllTagsOfAnime(@PathParam( "animeId" ) Long id){
 		return tagService.getAllTagsOfAnime(id);
-	}
+	}*/
 	
 	/*@GET
 	@Path("/s/{string}")
