@@ -5,6 +5,9 @@ import org.hibernate.Transaction;
 import server.entity.User;
 import server.hibernateUtil.HibernateUtil;
 
+import javax.ws.rs.core.NewCookie;
+import javax.ws.rs.core.Response;
+
 public class UserService {
 	private Session session = null;
 	private Transaction transaction = null;
@@ -37,24 +40,35 @@ public class UserService {
 		return user;
 	}
 	
-	public boolean checkUser(String user ) {
+	public Boolean checkUser(String user) {
 		session = HibernateUtil.getSessionFactory().openSession();
+		transaction = session.getTransaction();
+		transaction.begin();
 		try {
-			Object query = session.createQuery("FROM User a WHERE a.user = :username")
-					.setParameter("username", user)
+			Object query = session.createQuery("FROM User a WHERE a.user = :user")
+					.setParameter("user", user)
 					//.setParameter("password", password)
 					/*.setHint("org.hibernate.cacheable", true)
 					.setCacheRegion("common")*/
-					.uniqueResult();
+					.getResultList();
 			if ( query != null) {
-				session.close();
-				return true;
+                session.close();
+                /*NewCookie cookie1 = new NewCookie("silogeado", "otracoki");
+                Response.ResponseBuilder rb = Response.ok("mycoki");
+                Response response = rb.cookie(cookie1)
+                        .build();
+                return response;*/
+              return true;
 			}
 		} catch (Exception e) {
 			session.close();
 			e.printStackTrace();
 		}
 		session.close();
-		return false;
+        /*NewCookie cookie2 = new NewCookie("Nologeado", "1");
+        Response.ResponseBuilder rbb = Response.ok("no" + "browser");
+        Response response = rbb.cookie(cookie2)
+                .build();*/
+        return false;
 	}
 }

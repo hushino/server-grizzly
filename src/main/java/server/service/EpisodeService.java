@@ -10,10 +10,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EpisodeService {
-	
+
 	private Session session = null;
 	private Transaction transaction = null;
-	
+
 	/* public List<Episode> getAllEpisodesOfAnAnime(Long animeId) {
 		session = HibernateUtil.getSessionFactory().openSession();
 		Anime anime = session.find(Anime.class, animeId);
@@ -23,12 +23,12 @@ public class EpisodeService {
 		return episodes;
 	}*/
 	  //SELECT `Anime_anime_id`, `episode_episode_id` FROM `anime_episode` WHERE 1
+	//*Anime anime = session.find(Anime.class, animeId);
+	//anime.getEpisode().size();
 	 public List<Episode> getAllEpisodesOfAnAnime(Long animeId) {
 		session = HibernateUtil.getSessionFactory().openSession();
-		//*Anime anime = session.find(Anime.class, animeId);
-		//anime.getEpisode().size();
 		 List<Episode> episodesHashSet = new ArrayList<>();
-		for(Object oneObject : session.createQuery(
+         for(Object oneObject : session.createQuery(
 				"Select o from Episode o where o.anime.id = :animeId ORDER BY o.updateDate DESC")
 				//FROM Episode e LEFT JOIN FETCH e.anime WHERE e.episode=:animeId
 				.setParameter("animeId",animeId)
@@ -41,7 +41,7 @@ public class EpisodeService {
 		session.close();
 		return episodesHashSet;
 	}
-	
+
 	public List<Episode> getUniqueEpisodesOfAnime(Long animeId, Long episodeId) {
 		session = HibernateUtil.getSessionFactory().openSession();
 		List<Episode> episodesHashSet = new ArrayList<>();
@@ -58,7 +58,7 @@ public class EpisodeService {
 		session.close();
 		return episodesHashSet;
 	}
-	
+
 	/*public List<Episode> getAllEpisodesOfAnAnime(Long animeId) {
 		session = HibernateUtil.getSessionFactory().openSession();
 		Anime anime = session.find(Anime.class, animeId);
@@ -67,14 +67,14 @@ public class EpisodeService {
 		session.close();
 		return episodes;
 	}*/
-	
+
 	public Anime getAnimeOfAnEpisode(Long animeId) {
 		session = HibernateUtil.getSessionFactory().openSession();
 		Anime anime = session.find(Anime.class, animeId);
 		session.close();
 		return anime;
 	}
-	
+
 	public Episode addEpisode(Long animeId, Episode episode) {
 		session = HibernateUtil.getSessionFactory().openSession();
 		transaction = session.getTransaction();
@@ -87,7 +87,7 @@ public class EpisodeService {
 		session.close();
 		return episode;
 	}
-	
+
 	public Episode putEpisode(Episode episode) {
 		session = HibernateUtil.getSessionFactory().openSession();
 		transaction = session.getTransaction();
@@ -97,7 +97,7 @@ public class EpisodeService {
 		session.close();
 		return episode;
 	}
-	
+
 	public void removeEpisode(Long episodeId) {
 		session = HibernateUtil.getSessionFactory().openSession();
 		transaction = session.getTransaction();
@@ -107,11 +107,11 @@ public class EpisodeService {
 		transaction.commit();
 		session.close();
 	}
-	
-	
- 
-	
-	
+
+
+
+
+
 	/*public List<Episode> getAllEpisodesOfAnAnime(Long animeId) {
 		session = HibernateUtil.getSessionFactory().openSession();
 		ArrayList<Episode> episodeArrayList = new ArrayList<>();
@@ -121,7 +121,7 @@ public class EpisodeService {
 		{//FROM Episode e LEFT JOIN FETCH e.anime WHERE e.parentId=:animeId
 			episodeArrayList.add((Episode) episodeObject);
 		}
-		
+
 		session.close();
 		return episodeArrayList;
 	}*/
@@ -134,12 +134,12 @@ public class EpisodeService {
 		{//FROM Episode e LEFT JOIN FETCH e.anime WHERE e.parentId=:animeId
 			episodeArrayList.add((Episode) episodeObject);
 		}
-		
+
 		session.close();
 		return episodeArrayList;
 	}*/
-	
-	
+
+
 	// needs optimization
 	/*public List<Anime> getAnimeOfAnEpisode(Long animeId) {
 		session = HibernateUtil.getSessionFactory().openSession();
@@ -147,11 +147,11 @@ public class EpisodeService {
 				.setParameter("animeId", animeId)
 				.setMaxResults(1)
 				.getResultList();
-		
+
 		session.close();
 		return sd;
 	}*/
-	
+
 	//FROM Episode e LEFT JOIN FETCH e.anime  WHERE e.parentId=:animeId
 	/*private String hql = "FROM Episode a LEFT JOIN FETCH a.anime r where r.id=:animeId";
 	public List<Episode> getAllEpisodesWithAnime(Long animeId) {
@@ -166,7 +166,7 @@ public class EpisodeService {
 		session.close();
 		return arrayList;
 	}
-	
+
 	/*public List<String> getAllEpisodesOfAnAnime(Long animeId) {
 		session = HibernateUtil.getSessionFactory().openSession();
 		ArrayList<Episode> episodeArrayList = new ArrayList<>();
@@ -184,16 +184,16 @@ public class EpisodeService {
 		{
 			 animeArrayList.add(( Anime ) animeObject);
 			 //String est = animeObject.toString();
-			 
+
 		}*//*
 		String toString = episodeArrayList.toString();
 		//String toString2 = animeArrayList.toString();
 		//String concat = toString.concat(toString2);
 		//List<String> items = Arrays.asList(concat.split("\\s*,\\s*"));
 		List<String> items = Arrays.asList(toString.split("\\s*,\\s*"));
-		
+
 		JSONObject jsonObj = new JSONObject(toString);
-		
+
 		session.close();
 		return items;
 	}*/
@@ -210,30 +210,30 @@ public class EpisodeService {
 		session.close();
 		return arrayList;
 	}*/
-	
-	
-	
+
+
+
 	/*FROM Episode t JOIN FETCH Anime r WHERE t.parentId=:animeId and r.id=:animeId
 	* SELECT new Map(p.nombrePagina, ur.id) FROM User_rol as ur
     INNER JOIN Rol_pagina as rp ON rp.id = ur.id
     INNER JOIN Pagina as p ON p.id = rp.listaWeb_id
     WHERE ur.User_id =:param1 AND p.nombrePagina =:param2
 	* */
-	
+
 	//FROM Episode a LEFT JOIN FETCH a.anime r where r.id=:animeId query extraña
 	//from EmployeeBO join fetch EmployeeBO.department
 	//SELECT e FROM Anime e LEFT JOIN FETCH e.episode WHERE e.id=:animeId trae el anime
 	//FROM Episode t WHERE t.parentId=:animeId ORDER BY t.updateDate ASC trae anime+cap
 	//"FROM Anime a join a.episode r where r.parentId=:animeId" trae el anime del cap
-	
-	
-	
-	
-	
+
+
+
+
+
 	/*public Episode addEpisode(long animeId, Episode episode) {
 		session = HibernateUtil.getSessionFactory().openSession();
 		Anime anime= getalgo(animeId, Anime.class);
-		
+
 		//Map<Long, Episode> comments = messages.get(messageId).getComments();
 		ArrayList<Anime> arreglo = new ArrayList<>();
 		for (Object oneObject : session.createQuery("FROM Anime a ORDER BY a.updateDate DESC")
@@ -245,7 +245,7 @@ public class EpisodeService {
 			// arreglo.set()
 		    //arreglo.add(episode.getId(), episode);
 		}
-		
+
 		session.close();
 		return episode;
 	}*/
