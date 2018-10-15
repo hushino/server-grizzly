@@ -14,17 +14,6 @@ public class EpisodeService {
 	private Session session = null;
 	private Transaction transaction = null;
 
-	/* public List<Episode> getAllEpisodesOfAnAnime(Long animeId) {
-		session = HibernateUtil.getSessionFactory().openSession();
-		Anime anime = session.find(Anime.class, animeId);
-		anime.getEpisode().size();
-		List<Episode> episodes = anime.getEpisode();
-		session.close();
-		return episodes;
-	}*/
-	  //SELECT `Anime_anime_id`, `episode_episode_id` FROM `anime_episode` WHERE 1
-	//*Anime anime = session.find(Anime.class, animeId);
-	//anime.getEpisode().size();
 	 public List<Episode> getAllEpisodesOfAnAnime(Long animeId) {
 		session = HibernateUtil.getSessionFactory().openSession();
 		 List<Episode> episodesHashSet = new ArrayList<>();
@@ -58,15 +47,6 @@ public class EpisodeService {
 		session.close();
 		return episodesHashSet;
 	}
-
-	/*public List<Episode> getAllEpisodesOfAnAnime(Long animeId) {
-		session = HibernateUtil.getSessionFactory().openSession();
-		Anime anime = session.find(Anime.class, animeId);
-		anime.getEpisode().size();
-		List<Episode> episodes = anime.getEpisode();
-		session.close();
-		return episodes;
-	}*/
 
 	public Anime getAnimeOfAnEpisode(Long animeId) {
 		session = HibernateUtil.getSessionFactory().openSession();
@@ -110,6 +90,26 @@ public class EpisodeService {
 
 
 
+	/* public List<Episode> getAllEpisodesOfAnAnime(Long animeId) {
+		session = HibernateUtil.getSessionFactory().openSession();
+		Anime anime = session.find(Anime.class, animeId);
+		anime.getEpisode().size();
+		List<Episode> episodes = anime.getEpisode();
+		session.close();
+		return episodes;
+	}*/
+	  //SELECT `Anime_anime_id`, `episode_episode_id` FROM `anime_episode` WHERE 1
+	//*Anime anime = session.find(Anime.class, animeId);
+	//anime.getEpisode().size();
+
+	/*public List<Episode> getAllEpisodesOfAnAnime(Long animeId) {
+		session = HibernateUtil.getSessionFactory().openSession();
+		Anime anime = session.find(Anime.class, animeId);
+		anime.getEpisode().size();
+		List<Episode> episodes = anime.getEpisode();
+		session.close();
+		return episodes;
+	}*/
 
 
 	/*public List<Episode> getAllEpisodesOfAnAnime(Long animeId) {

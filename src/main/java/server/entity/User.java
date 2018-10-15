@@ -13,73 +13,75 @@ import java.util.Date;
 @Cacheable( true )
 @DynamicUpdate()
 public class User implements Serializable {
-	
+
+	private static final long serialVersionUID = 6934486376372098793L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "user_id")
 	private Long id;
-	
+
 	private String user;
 	private int password;
-	
+
 	public Long getId() {
 		return id;
 	}
-	
+
 	public void setId(Long id) {
 		this.id = id;
 	}
-	
+
 	public String getUser() {
 		return user;
 	}
-	
+
 	public void setUser(String user) {
 		this.user = user;
 	}
-	
+
 	public int getPassword() {
 		return password;
 	}
-	
+
 	public void setPassword(int password) {
 		this.password = password;
 	}
-	
+
 	public Date getCreateDate() {
 		return createDate;
 	}
-	
+
 	public void setCreateDate(Date createDate) {
 		this.createDate = createDate;
 	}
-	
+
 	public Date getUpdateDate() {
 		return updateDate;
 	}
-	
+
 	public void setUpdateDate(Date updateDate) {
 		this.updateDate = updateDate;
 	}
-	
+
 	public User(){
-	
+
 	}
-	
+
 	public User(String user, int password) {
 		this.user = user;
 		this.password = password;
 	}
-	
+
 	@CreationTimestamp
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "create_date")
 	private Date createDate;
-	
+
 	@UpdateTimestamp
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "update_date")
 	private Date updateDate;
-	
-	
+
+
 }
