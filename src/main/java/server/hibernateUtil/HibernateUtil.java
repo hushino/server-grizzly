@@ -30,8 +30,8 @@ public class HibernateUtil {
 				settings.put(Environment.DIALECT, "org.hibernate.dialect.MySQL5Dialect");
 				//settings.put(Environment.VALIDATE_QUERY_PARAMETERS, "SELECT 1");
 				// Enable second level cache (default value is true)
-				settings.put(Environment.USE_SECOND_LEVEL_CACHE, false);
-				settings.put(Environment.USE_QUERY_CACHE, false);
+				settings.put(Environment.USE_SECOND_LEVEL_CACHE, true);
+				settings.put(Environment.USE_QUERY_CACHE, true);
 				//settings.put(Environment.JPA_SHARED_CACHE_MODE, "ALL");
 				settings.put(Environment.STATEMENT_FETCH_SIZE, 10);
 				
@@ -65,7 +65,7 @@ public class HibernateUtil {
 				
 				registry = registryBuilder.build();
 				MetadataSources sources = new MetadataSources(registry)
-						.addAnnotatedClass(Anime.class)
+						.addAnnotatedClass(Serie.class)
 						.addAnnotatedClass(Episode.class)
 						.addAnnotatedClass(User.class)
 						.addAnnotatedClass(Tag.class);

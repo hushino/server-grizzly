@@ -2,7 +2,7 @@ singleServerConfig:
   idleConnectionTimeout: 10000
   pingTimeout: 1000
   connectTimeout: 1000
-  timeout: 1000
+  timeout: 6000
   retryAttempts: 1
   retryInterval: 1000
   reconnectionTimeout: 3000
@@ -12,9 +12,9 @@ singleServerConfig:
   clientName: null
   address: "redis://127.0.0.1:6379"
   subscriptionConnectionMinimumIdleSize: 1
-  subscriptionConnectionPoolSize: 25
+  subscriptionConnectionPoolSize: 500
   connectionMinimumIdleSize: 5
-  connectionPoolSize: 100
+  connectionPoolSize: 20000
   database: 0
   dnsMonitoring: false
   dnsMonitoringInterval: 5000

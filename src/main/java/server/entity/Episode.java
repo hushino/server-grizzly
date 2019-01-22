@@ -44,39 +44,39 @@ public class Episode implements Serializable {
 	private Long parentID; //no columm and acces to joincolumm id
 
 
-	//@ElementCollection(targetClass=Anime.class,fetch = FetchType.EAGER)
+	//@ElementCollection(targetClass=Serie.class,fetch = FetchType.EAGER)
 
 	/*@ManyToMany( mappedBy = "episodes" ,fetch = FetchType.EAGER)
-	private List<Anime> anime;
+	private List<Serie> serie;
 
-	public List<Anime> getAnime() {
-		return anime;
+	public List<Serie> getSeries() {
+		return serie;
 	}
 
-	public void setAnime(List<Anime> anime) {
-		this.anime = anime;
+	public void setSeries(List<Serie> serie) {
+		this.serie = serie;
 	}
 	*/
 	// use optional=false (much faster) @OneToMany(optional = false)
 	@JsonbTransient
 	@ManyToOne( fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	@JoinColumn( name = "anime_id" ,updatable = false )
-	private Anime anime;
+	@JoinColumn( name = "serie_id" ,updatable = false )
+	private Serie serie;
 
-	public Anime getAnime() {
-		return anime;
+	public Serie getSerie() {
+		return serie;
 	}
 
 	@JsonbTransient
-	public void setAnime(Anime anime) {
-		this.anime = anime;
+	public void setSerie(Serie serie) {
+		this.serie = serie;
 	}
 
 
-	public Episode(String title, double episode, Anime anime) {
+	public Episode(String title, double episode, Serie serie) {
 		this.title = title;
 		this.episode = episode;
-		this.anime = anime;
+		this.serie = serie;
 	}
 
 	public Episode() {
@@ -152,7 +152,7 @@ public class Episode implements Serializable {
 				"id="+id+
 				", title='"+title+'\''+
 				", episode="+episode+
-				", anime="+anime+
+				", serie="+ serie +
 				", createDate="+createDate+
 				", updateDate="+updateDate+
 				'}';

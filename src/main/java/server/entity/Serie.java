@@ -12,16 +12,16 @@ import java.time.LocalDateTime;
 import java.util.*;
 
 @Entity
-@Table(name = "anime")
+@Table(name = "serie")
 @Cacheable( true )
 @DynamicUpdate()
-public class Anime implements Serializable {
+public class Serie implements Serializable {
 
 	private static final long serialVersionUID = 2609060235592553004L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "anime_id")
+	@Column(name = "serie_id")
 	private Long id;
 
 	private String title;
@@ -37,21 +37,25 @@ public class Anime implements Serializable {
 
 	private String backgroundimage;
 
-	private LocalDateTime fechadeEmision;
+	private String fechadeEmision;
 
-	private LocalDateTime fechadeFinalizacion;
+	private String fechadeFinalizacion;
 
 
 
 	// use optional=false (much faster) @OneToMany(optional = false)
 
-	@OneToMany( fetch = FetchType.EAGER, mappedBy = "anime", cascade = CascadeType.ALL )
+	@OneToMany( fetch = FetchType.EAGER, mappedBy = "serie", cascade = CascadeType.ALL )
 	@Fetch(value = FetchMode.SUBSELECT)
 	private List<Episode> episode = new ArrayList<>();
 
-	@ManyToMany( fetch = FetchType.EAGER, mappedBy = "anime", cascade = CascadeType.ALL )
+	@ManyToMany( fetch = FetchType.EAGER, mappedBy = "series", cascade = CascadeType.ALL )
 	@Fetch(value = FetchMode.SUBSELECT)
 	private List<Tag> tags =new ArrayList<>();
+
+	@OneToMany( fetch = FetchType.EAGER, mappedBy = "serie", cascade = CascadeType.ALL )
+	@Fetch(value = FetchMode.SUBSELECT)
+	private List<User> user = new ArrayList<>();
 
 	public List<Episode> getEpisode() {
 		return episode;
@@ -155,23 +159,23 @@ public class Anime implements Serializable {
 	}
 
 
-	public LocalDateTime getFechadeEmision() {
+	public String getFechadeEmision() {
 		return fechadeEmision;
 	}
 
-	public void setFechadeEmision(LocalDateTime fechadeEmision) {
+	public void setFechadeEmision(String fechadeEmision) {
 		this.fechadeEmision = fechadeEmision;
 	}
 
-	public LocalDateTime getFechadeFinalizacion() {
+	public String getFechadeFinalizacion() {
 		return fechadeFinalizacion;
 	}
 
-	public void setFechadeFinalizacion(LocalDateTime fechadeFinalizacion) {
+	public void setFechadeFinalizacion(String fechadeFinalizacion) {
 		this.fechadeFinalizacion = fechadeFinalizacion;
 	}
 
-	public Anime(String title, String synopsis, String state, String type, String frontimage, String backgroundimage, LocalDateTime fechadeEmision, LocalDateTime fechadeFinalizacion ) {
+	public Serie(String title, String synopsis, String state, String type, String frontimage, String backgroundimage, String fechadeEmision, String fechadeFinalizacion ) {
 		this.title = title;
 		this.synopsis = synopsis;
 		this.state = state;
@@ -182,7 +186,7 @@ public class Anime implements Serializable {
 		this.fechadeFinalizacion = fechadeFinalizacion;
 	}
 
-	public Anime(){
+	public Serie(){
 
 	}
 
@@ -214,7 +218,7 @@ public class Anime implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Anime{"+
+		return "Serie{"+
 				"id="+id+
 				", title='"+title+'\''+
 				/*", episode="+episode+*/

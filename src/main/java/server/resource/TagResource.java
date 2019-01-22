@@ -1,7 +1,7 @@
 package server.resource;
 
 
-import server.entity.Anime;
+import server.entity.Serie;
 import server.entity.Tag;
 import server.service.TagService;
 
@@ -11,14 +11,14 @@ import java.util.List;
 
 @Path( "/tag" )
 @Produces( MediaType.APPLICATION_JSON)
-@Consumes( MediaType.APPLICATION_JSON)
+@Consumes({MediaType.APPLICATION_FORM_URLENCODED,MediaType.APPLICATION_JSON,MediaType.APPLICATION_JSON_PATCH_JSON,MediaType.MULTIPART_FORM_DATA})
 public class TagResource {
 	private TagService tagService = new TagService();
 	
 	@GET
-	@Path("/{animeId}")
-	public List<Tag> getAllTagsOfAnime(@PathParam( "animeId" ) Long id){
-		return tagService.getAllTagsOfAnime(id);
+	@Path("/{serieId}")
+	public List<Tag> getAllTagsOfSerie(@PathParam( "serieId" ) Long id){
+		return tagService.getAllTagsOfSerie(id);
 	}
 	
 	/*@GET
@@ -29,8 +29,8 @@ public class TagResource {
 	*/
 	
 	@GET
-	@Path("/getAllAnimeByGenre/{id}")
-	public List<Anime> getAll(@PathParam( "id" ) Long id){
+	@Path("/getAllSerieByGenre/{id}")
+	public List<Serie> getAll(@PathParam( "id" ) Long id){
 		return tagService.getAll(id);
 	}
 }

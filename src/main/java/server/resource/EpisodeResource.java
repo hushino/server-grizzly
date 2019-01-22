@@ -1,7 +1,7 @@
 package server.resource;
 
 
-import server.entity.Anime;
+import server.entity.Serie;
 import server.entity.Episode;
 import server.service.EpisodeService;
 
@@ -11,33 +11,33 @@ import java.util.List;
 
 @Path( "/" )
 @Produces( MediaType.APPLICATION_JSON )
-@Consumes( MediaType.APPLICATION_JSON )
+@Consumes( {MediaType.APPLICATION_FORM_URLENCODED,MediaType.APPLICATION_JSON,MediaType.APPLICATION_JSON_PATCH_JSON,MediaType.MULTIPART_FORM_DATA} )
 public class EpisodeResource {
 	
 	private EpisodeService episodeService = new EpisodeService();
 	
 	@GET
-	@Path( "/{animeId}" )
-	public List<Episode> getAllEpisodesOfAnAnime(@PathParam( "animeId" ) Long animeId) {
-		return episodeService.getAllEpisodesOfAnAnime(animeId);
+	@Path( "/{serieId}" )
+	public List<Episode> getAllEpisodesOfAnAnime(@PathParam( "serieId" ) Long serieId) {
+		return episodeService.getAllEpisodesOfAnSerie(serieId);
 	}
 	
 	@GET
-	@Path( "/{animeId}/{episodeId}" )
-	public List<Episode> getUniqueEpisodesOfAnime(@PathParam( "animeId" ) Long animeId,@PathParam( "episodeId" ) Long episodeId) {
-		return episodeService.getUniqueEpisodesOfAnime(animeId,episodeId);
+	@Path( "/{serieId}/{episodeId}" )
+	public List<Episode> getUniqueEpisodesOfAnime(@PathParam( "serieId" ) Long serieId,@PathParam( "episodeId" ) Long episodeId) {
+		return episodeService.getUniqueEpisodesOfSerie(serieId,episodeId);
 	}
 	
 	@GET
-	@Path( "/{animeId}/v" )
-	public Anime getAnimeOfAnEpisode(@PathParam( "animeId" ) Long animeId) {
-		return episodeService.getAnimeOfAnEpisode(animeId);
+	@Path( "/{serieId}/v" )
+	public Serie getAnimeOfAnEpisode(@PathParam( "serieId" ) Long serieId) {
+		return episodeService.getSerieOfAnEpisode(serieId);
 	}
 	
 	@POST
-	@Path( "/{animeId}" )
-	public Episode addEpisode(@PathParam( "animeId" ) Long animeId, Episode episode) {
-		return episodeService.addEpisode(animeId, episode);
+	@Path( "/{serieId}" )
+	public Episode addEpisode(@PathParam( "serieId" ) Long serieId, Episode episode) {
+		return episodeService.addEpisode(serieId, episode);
 	}
 	
 	@PUT

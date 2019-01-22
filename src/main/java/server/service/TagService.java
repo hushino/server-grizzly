@@ -2,7 +2,7 @@ package server.service;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import server.entity.Anime;
+import server.entity.Serie;
 import server.entity.Tag;
 import server.hibernateUtil.HibernateUtil;
 
@@ -12,21 +12,21 @@ public class TagService {
 	private Session session = null;
 	private Transaction transaction = null;
 	
-	public List<Tag> getAllTagsOfAnime(Long id) {
+	public List<Tag> getAllTagsOfSerie(Long id) {
 		session = HibernateUtil.getSessionFactory().openSession();
-		Anime anime = session.find(Anime.class, id);
-		anime.getTags().size();
-		List<Tag> tags = anime.getTags();
+		Serie serie = session.find(Serie.class, id);
+		serie.getTags().size();
+		List<Tag> tags = serie.getTags();
 		session.close();
 		return tags;
 	}
-	public List<Anime> getAll(Long id) {
+	public List<Serie> getAll(Long id) {
 		session = HibernateUtil.getSessionFactory().openSession();
 		Tag tag = session.find(Tag.class, id);
-		tag.getAnime().size();
-		List<Anime> anime = tag.getAnime();
+		tag.getSeries().size();
+		List<Serie> series = tag.getSeries();
 		session.close();
-		return anime;
+		return series;
 	}
 	/*public List<Tag> getAllAnimeWhithTagName(String string) {
 		session = HibernateUtil.getSessionFactory().openSession();

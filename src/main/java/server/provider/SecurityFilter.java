@@ -20,7 +20,7 @@ public class SecurityFilter implements ContainerRequestFilter {
 	
 	private static final String AUTHOTIZATION_HEADER_KEY = "Authorization";
 	private static final String AUTHORIZATION_HEADER_PREFIX = "Basic ";
-	private static final String SECURED_URL_PREFIX = "v1/animes/view/";
+	private static final String SECURED_URL_PREFIX = "v1/";
 	//private static final String SECURED_URL_PREFIX = "login/check";
 	private static final String RESPONSE_FAIL = "User cannot access the resource.";
 
@@ -35,8 +35,9 @@ public class SecurityFilter implements ContainerRequestFilter {
                 StringTokenizer tokenizer = new StringTokenizer(decodedString, ":");
                 String username = tokenizer.nextToken();
                 String password = tokenizer.nextToken();
-
-                if("hushino".equals(username) /*&& "password".equals(password)*/){
+				// retirar esto y comprobar a parte si es que existe el usuario en la BD
+				// luego simplemente aplicar el token en caso de que exista
+                if("hus".equals(username) && "pas".equals(password)){
                     return;
                 }
             }

@@ -2,34 +2,34 @@ package server.service;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import server.entity.Anime;
+import server.entity.Serie;
 import server.hibernateUtil.HibernateUtil;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class AnimeService {
+public class SerieService {
 	
 	private Session session = null;
 	private Transaction transaction = null;
 	
-	public List<Anime> getAllAnimesPaginated(int start, int size) {
+	public List<Serie> getAllSeriesPaginated(int start, int size) {
 		session = HibernateUtil.getSessionFactory().openSession();
-		ArrayList<Anime> arreglo = new ArrayList<>();
-		for(Object oneObject : session.createQuery("FROM Anime a ORDER BY a.updateDate DESC")
+		ArrayList<Serie> arreglo = new ArrayList<>();
+		for(Object oneObject : session.createQuery("FROM Serie a ORDER BY a.updateDate DESC")
 				.getResultList()) {
-			arreglo.add(( Anime ) oneObject);
+			arreglo.add((Serie) oneObject);
 		}
 		session.close();
 		return arreglo.subList(start, start+size);
 	}
 	
-	public Anime addAnime(Anime anime) {
+	public Serie addSerie(Serie serie) {
 		try{
 			session = HibernateUtil.getSessionFactory().openSession();
 			transaction = session.getTransaction();
 			transaction.begin();
-			session.save(anime);
+			session.save(serie);
 			transaction.commit();
 		}catch(Exception e){
 			if(transaction!=null){
@@ -41,27 +41,27 @@ public class AnimeService {
 				session.close();
 			}
 		}
-		return anime;
+		return serie;
 	}
-	//Unique anime by id
-	public List<Anime> getAnime(long id) {
+	//Unique Serie by id
+	public List<Serie> getSerie(long id) {
 		session = HibernateUtil.getSessionFactory().openSession();
 		transaction = session.getTransaction();
 		transaction.begin();
-		List<Anime> animeHashSet = new ArrayList<>();
-		/*Anime anime = session.find(Anime.class, id);
-		anime.getEpisode().size();*/
-		for(Object oneObject : session.createQuery("FROM Anime  a where a.id=:id")
+		List<Serie> serieHashSet = new ArrayList<>();
+		/*Serie serie = session.find(Serie.class, id);
+		serie.getEpisode().size();*/
+		for(Object oneObject : session.createQuery("FROM Serie a where a.id=:id")
 				.setParameter("id",id)
 				.setHint("org.hibernate.cacheable", true)
 				.setCacheRegion("common")
 				.getResultList()
 		) {
-			animeHashSet.add(( Anime ) oneObject);
+			serieHashSet.add((Serie) oneObject);
 		}
 		transaction.commit();
 		session.close();
-		return animeHashSet;
+		return serieHashSet;
 	}
 	/*"select distinct bd,sum(bpds.amount) from BillDetails as bd "
                     + "left join fetch bd.customerDetails as cd "
@@ -70,47 +70,47 @@ public class AnimeService {
                     +"left join fetch bd.billPaidDetailses as bpds "
                     + "where bd.billNo=:id "
                     + "and bd.client.id=:cid ";*/
-	/*public Anime getAnime(long id) {
+	/*public Serie getSeries(long id) {
 		session = HibernateUtil.getSessionFactory().openSession();
 		transaction = session.getTransaction();
 		transaction.begin();
-		Anime anime =  session.get(Anime.class, id);
+		Serie anime =  session.get(Serie.class, id);
 		transaction.commit();
 		session.close();
 		return anime;
 	}*/
-	
-	public List<Anime> getAllAnimes() {
+	/*Quien mas sabe mas disfruta*/
+	public List<Serie> getAllSeries() {
 		session = HibernateUtil.getSessionFactory().openSession();
-		ArrayList<Anime> arreglo = new ArrayList<>();
-		for(Object oneObject : session.createQuery("FROM Anime a ORDER BY a.updateDate DESC")
-				.setHint("org.hibernate.cacheable", true)
-				.setCacheRegion("common")  //para activar redis descomentar esto
+		ArrayList<Serie> arreglo = new ArrayList<>();
+		for(Object oneObject : session.createQuery("FROM Serie a ORDER BY a.updateDate DESC")
+				/*.setHint("org.hibernate.cacheable", true)
+				.setCacheRegion("common")*/  //para activar redis descomentar esto
 				.setMaxResults(10)
 				.getResultList()
 		) {
-			arreglo.add(( Anime ) oneObject);
+			arreglo.add((Serie) oneObject);
 		}
 		session.close();
 		return arreglo;
 	}
 	
-	public Anime updateAnime(Anime animeid) {
+	public Serie updateSerie(Serie serieid) {
 		session = HibernateUtil.getSessionFactory().openSession();
 		transaction = session.getTransaction();
 		transaction.begin();
-		session.update(animeid);
+		session.update(serieid);
 		transaction.commit();
 		session.close();
-		return animeid;
+		return serieid;
 	}
 	
-	public void removeAnime(long id) {
+	public void removeSerie(long id) {
 		session = HibernateUtil.getSessionFactory().openSession();
 		transaction = session.getTransaction();
 		transaction.begin();
-		Anime anime = session.get(Anime.class, id);
-		session.delete(anime);
+		Serie serie = session.get(Serie.class, id);
+		session.delete(serie);
 		transaction.commit();
 		session.close();
 	}

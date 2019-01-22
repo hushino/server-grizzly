@@ -45,18 +45,18 @@ public class Tag implements Serializable {
 
 	@JsonbTransient
 	@ManyToMany( fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	@JoinColumn( name = "anime_id" ,updatable = false )
-	private List<Anime> anime;
+	@JoinColumn( name = "serie_id" ,updatable = false )
+	private List<Serie> series;
 
-	public List<Anime> getAnime() {
-		return anime;
+	public List<Serie> getSeries() {
+		return series;
 	}
 
-	public void setAnime(List<Anime> anime) {
-		this.anime = anime;
+	public void setSeries(List<Serie> series) {
+		this.series = series;
 	}
 	 /*@JsonbTransient
-	@OneToMany( fetch = FetchType.EAGER, mappedBy = "anime", cascade = CascadeType.ALL )
+	@OneToMany( fetch = FetchType.EAGER, mappedBy = "series", cascade = CascadeType.ALL )
 	private List<Tag> tags = new ArrayList<>();
 
 	public List<Tag> getTags() {
@@ -74,17 +74,17 @@ public class Tag implements Serializable {
 	)*/
 	/*@JsonbTransient
 	@ManyToMany(fetch=FetchType.EAGER,cascade = {CascadeType.ALL},mappedBy = "tags")
-	private List<Anime> animes = new ArrayList<>();*/
+	private List<Serie> animes = new ArrayList<>();*/
 
 	/*@OneToMany( fetch = FetchType.EAGER, mappedBy = "tag", cascade = CascadeType.ALL )
-	private List<Anime> anime = new ArrayList<>();
+	private List<Serie> series = new ArrayList<>();
 
-	public List<Anime> getAnime() {
-		return anime;
+	public List<Serie> getSeries() {
+		return series;
 	}
 
-	public void setAnime(List<Anime> anime) {
-		this.anime = anime;
+	public void setSeries(List<Serie> series) {
+		this.series = series;
 	}*/
 
 

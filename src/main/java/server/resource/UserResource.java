@@ -9,7 +9,7 @@ import javax.ws.rs.core.Response;
 
 @Path( "/login" )
 @Consumes( MediaType.APPLICATION_JSON )
-@Produces( MediaType.APPLICATION_JSON )
+@Produces( {MediaType.APPLICATION_FORM_URLENCODED,MediaType.APPLICATION_JSON,MediaType.APPLICATION_JSON_PATCH_JSON,MediaType.MULTIPART_FORM_DATA} )
 public class UserResource {
 	
 	private UserService userService = new UserService();

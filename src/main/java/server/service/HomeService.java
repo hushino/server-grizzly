@@ -11,8 +11,7 @@ import java.util.List;
 
 public class HomeService {
 	private Session session = null;
-	private Transaction transaction = null;
-	
+
 	//posiblemente vengan desordenados si es que el updatedate es el mismo para mas de uno
 	public List<Episode> getAllEpisodesWithLimit() {
 		session = HibernateUtil.getSessionFactory().openSession();

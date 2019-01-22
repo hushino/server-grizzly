@@ -4,6 +4,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
@@ -23,6 +24,11 @@ public class User implements Serializable {
 
 	private String user;
 	private int password;
+
+	@JsonbTransient
+	@ManyToOne( fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JoinColumn( name = "serie_id" ,updatable = false )
+	private Serie serie;
 
 	public Long getId() {
 		return id;
